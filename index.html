@@ -8,7 +8,7 @@
     <link href="css/style.css" rel="stylesheet">
     <title>Blih</title>
   </head>
-  <body>
+  <body ng-app="blih">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -22,25 +22,36 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li class="active" ui-sref="home" ui-sref-active="active"><a href="#">Home</a></li>
+          <li><a href="#about" ui-sref="about">About</a></li>
         </ul>
       </div><!--/.nav-collapse -->
-    </div>
+  </div>
   </nav>
   <div class="container">
-    <div class="starter-template">
-      <h1>Bootstrap starter template</h1>
-      <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-    </div>
+    <ui-view></ui-view>
   </div><!-- /.container -->
   </body>
   <script>
     // You can also require other files to run in this process
-    require('./renderer.js')
     const $ = require('jquery')
     const jQuery = $
-    const bootstrap = require('bootstrap')
+    require('bootstrap')
+    require('angular')
+    require('angular-ui-router')
+    require('./renderer.js')
+
+    const app = angular.module('blih', ['ui.router'])
+
+    require('./controller/homeController.js')
+
+    app.config(($stateProvider, $urlRouterProvider) => {
+        $stateProvider.state('default', {
+            controller: 'homeController',
+            templateUrl: './templates/home.html',
+            url:'/'
+        })
+        $urlRouterProvider.otherwise('/')
+    })
   </script>
 </html>
