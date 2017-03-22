@@ -1,0 +1,14 @@
+{
+  "name": "blihgui",
+  "version": "1.0.0",
+  "description": "GUI for EPITECH blih",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron src/main.js"
+  },
+  "author": "Yann Carlen",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  }
+}
