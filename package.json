@@ -4,7 +4,7 @@
   "description": "GUI for EPITECH blih",
   "main": "src/main.js",
   "scripts": {
-    "start": "nodemon --watch index.html  --exec electron src/main.js"
+    "start": "nodemon --watch index.html src/* csss/*  --exec electron src/main.js"
   },
   "author": "Yann Carlen",
   "license": "MIT",
