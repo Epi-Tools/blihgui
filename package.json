@@ -10,5 +10,11 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "^1.4.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-ui-router": "^0.4.2",
+    "bootstrap": "^3.3.7",
+    "python-shell": "^0.4.0"
   }
 }
