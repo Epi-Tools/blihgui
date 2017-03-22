@@ -2,10 +2,13 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Blih</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h1>Blih GUI</h1>
     <!-- All of the Node.js APIs are available in this renderer process. -->
     We are using Node.js <script>document.write(process.versions.node)</script>,
     Chromium <script>document.write(process.versions.chrome)</script>,
@@ -15,5 +18,9 @@
   <script>
     // You can also require other files to run in this process
     require('./renderer.js')
+    const $ = require('jquery')
+    const jQuery = $
+    const bootstrap = require('bootstrap')
+
   </script>
 </html>

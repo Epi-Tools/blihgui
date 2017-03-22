@@ -4,12 +4,13 @@
   "description": "GUI for EPITECH blih",
   "main": "src/main.js",
   "scripts": {
-    "start": "electron src/main.js"
+    "start": "nodemon --watch index.html  --exec electron src/main.js"
   },
   "author": "Yann Carlen",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
     "angular": "^1.6.3",
