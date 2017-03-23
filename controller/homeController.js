@@ -4,7 +4,14 @@
 
 app.controller('homeController', ['$scope', function ($scope) {
     if (!user.log) {
-        $('#loginModal').modal({backdrop: 'static', keyboard: false})
-        $('#loginModal').modal('show')
+        const modal = $('#loginModal');
+        modal.modal({backdrop: 'static', keyboard: false})
+        modal.modal('show')
+    }
+
+    $scope.submitForm = () => {
+        if ($scope.userForm.$valid) {
+            
+        }
     }
 }]);
