@@ -48,7 +48,8 @@
         log: false
     }
 
-    require('./controller/homeController.js')
+    require('./services/blihFactory')
+    require('./controller/homeController')
 
     app.config(($stateProvider, $urlRouterProvider) => {
         $stateProvider.state('default', {

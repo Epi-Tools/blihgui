@@ -11,7 +11,7 @@ app.controller('homeController', ['$scope', function ($scope) {
 
     $scope.submitForm = () => {
         if ($scope.userForm.$valid) {
-            
+
         }
     }
 }]);
