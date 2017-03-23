@@ -7,6 +7,10 @@ body {
     text-align: center;
 }
 
+.warning {
+    color: #a94442;
+}
+
 .loginmodal-container {
     padding: 30px;
     max-width: 350px;

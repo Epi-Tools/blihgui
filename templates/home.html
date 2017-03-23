@@ -1,6 +1,8 @@
 <div class="starter-template">
-    <h1>Bootstrap starter template</h1>
-    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+    <h1>Repository List</h1>
+    <ul class="list-group" ng-repeat="repository in user.repositoryList">
+        <li class="list-group-item">{{ repository }}</li>
+    </ul>
 </div>
 
 <!-- Modal -->
@@ -19,8 +21,8 @@
                 <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
                     <label>Password</label>
                     <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="8" required>
-                    <p ng-show="userForm.password.$error.minlength" class="help-block">Password is too short.</p>
                 </div>
+                    <p ng-show="logError" class="warning">Wrong Email or Password</p>
                 <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Login</button>
             </form>
         </div>
