@@ -3,4 +3,8 @@
  */
 
 app.controller('homeController', ['$scope', function ($scope) {
+    if (!user.log) {
+        $('#loginModal').modal({backdrop: 'static', keyboard: false})
+        $('#loginModal').modal('show')
+    }
 }]);

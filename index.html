@@ -42,6 +42,11 @@
     require('./renderer.js')
 
     const app = angular.module('blih', ['ui.router'])
+    const user = {
+        name: '',
+        token: '',
+        log: false
+    }
 
     require('./controller/homeController.js')
 
