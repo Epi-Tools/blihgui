@@ -39,14 +39,9 @@
     require('bootstrap')
     require('angular')
     require('angular-ui-router')
-    require('./renderer.js')
+    require('angular-local-storage')
 
-    const app = angular.module('blih', ['ui.router'])
-    const user = {
-        name: '',
-        token: '',
-        log: false
-    }
+    const app = angular.module('blih', ['ui.router', 'LocalStorageModule'])
 
     require('./services/blihFactory')
     require('./controller/homeController')
@@ -58,6 +53,12 @@
             url:'/'
         })
         $urlRouterProvider.otherwise('/')
+    })
+
+    app.config(localStorageServiceProvider => {
+        localStorageServiceProvider
+            .setPrefix('blih')
+            .setStorageType('sessionStorage')
     })
   </script>
 </html>
