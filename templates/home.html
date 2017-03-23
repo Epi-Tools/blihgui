@@ -1,12 +1,39 @@
 <div class="starter-template">
-    <h1>Repository List</h1>
-    <ul class="list-group" ng-repeat="repository in user.repositoryList">
-        <li class="list-group-item">{{ repository }}</li>
-    </ul>
+    <h1>Create Repository</h1>
+    <div style="margin-top: 40px;">
+        <form name="createForm" class="form-inline" ng-submit="submitCreate()" novalidate>
+            <div class="form-group">
+                <div class="input-group" ng-class="{ 'has-error' : createForm.name.$invalid && !createForm.name.$pristine }">
+                    <input type="text" class="form-control" placeholder="Name" name="name" ng-minlength="2" ng-model="repo.name" required>
+                    <p ng-show="createForm.name.$invalid && !createForm.name.$pristine" class="help-block">Enter a valid name</p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="createForm.$invalid">Create</button>
+        </form>
+    </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<!-- Create Modal -->
+<div id="createModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Status</h4>
+            </div>
+            <div class="modal-body">
+                <p class="bg-success" ng-if="!createError">{{repo.name}} successfully created !</p>
+                <p class="bg-danger" ng-if="createError">{{repo.name}} not created !</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="loginmodal-container">
             <h1>Login</h1><br>

@@ -1,10 +1,10 @@
 /**
  * Created by carlen on 3/22/17.
  */
-
 app.controller('homeController', ['$scope', 'localStorageService', 'blihService', function ($scope, localStorageService, blihService) {
     let user = localStorageService.get('user')
-    const modal = $('#loginModal')
+    const loginModal = $('#loginModal')
+    const createModal = $('#createModal')
     $scope.logError = false
     $scope.userData = {
         userName: '',
@@ -12,8 +12,25 @@ app.controller('homeController', ['$scope', 'localStorageService', 'blihService'
     }
 
     if (!user) {
-        modal.modal({ backdrop: 'static', keyboard: false })
-        modal.modal('show')
+        loginModal.modal({ backdrop: 'static', keyboard: false })
+        loginModal.modal('show')
+    }
+
+    $scope.submitCreate = () => {
+        if ($scope.createForm.$valid) {
+            const name = $scope.repo.name
+            blihService.postRepo(user.userName, user.token, name)
+                .then(msg => {
+                    $scope.createError = false
+                    $scope.$apply()
+                    createModal.modal('show')
+                })
+                .catch(err => {
+                    $scope.createError = true
+                    $scope.$apply()
+                    createModal.modal('show')
+                })
+        }
     }
 
     $scope.submitForm = () => {
@@ -35,7 +52,7 @@ app.controller('homeController', ['$scope', 'localStorageService', 'blihService'
                         log: true
                     }
                     localStorageService.set('user', user)
-                    modal.modal('hide')
+                    loginModal.modal('hide')
                     $scope.userData = null
                     $scope.user = user
                     $scope.logError = false

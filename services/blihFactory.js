@@ -17,6 +17,7 @@ app.factory('blihService', () => {
 
     return  {
         getToken: password => crypto.createHash('sha512').update(password).digest('hex'),
-        getRepositoryList: (username, token) => execCmd(baseCmd(username, token, 'repository list'))
+        getRepositoryList: (username, token) => execCmd(baseCmd(username, token, 'repository list')),
+        postRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository create ${name}`))
     }
 })

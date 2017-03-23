@@ -22,8 +22,8 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active" ui-sref="home" ui-sref-active="active"><a href="#">Home</a></li>
-          <li><a href="#about" ui-sref="about">About</a></li>
+          <li ui-sref="home" ui-sref-active="active"><a href="#">Create</a></li>
+          <li><a ui-sref-active="active" ui-sref="list">List</a></li>
         </ul>
       </div><!--/.nav-collapse -->
   </div>
@@ -33,7 +33,6 @@
   </div><!-- /.container -->
   </body>
   <script>
-    // You can also require other files to run in this process
     const $ = require('jquery')
     const jQuery = $
     require('bootstrap')
@@ -45,9 +44,20 @@
 
     require('./services/blihFactory')
     require('./controller/homeController')
+    require('./controller/listController')
 
     app.config(($stateProvider, $urlRouterProvider) => {
         $stateProvider.state('default', {
+            controller: 'homeController',
+            templateUrl: './templates/home.html',
+            url:'/'
+        })
+        $stateProvider.state('list', {
+            controller: 'listController',
+            templateUrl: './templates/list.html',
+            url:'/list'
+        })
+        $stateProvider.state('home', {
             controller: 'homeController',
             templateUrl: './templates/home.html',
             url:'/'
