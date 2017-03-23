@@ -9,6 +9,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" ng-disabled="createForm.$invalid">Create</button>
+            <span us-spinner spinner-key="createSpinner" spinner-start-active="false"></span>
         </form>
     </div>
 </div>
@@ -51,6 +52,7 @@
                 </div>
                     <p ng-show="logError" class="warning">Wrong Email or Password</p>
                 <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Login</button>
+                <span us-spinner spinner-key="loginSpinner" spinner-start-active="false"></span>
             </form>
         </div>
     </div>

@@ -39,8 +39,9 @@
     require('angular')
     require('angular-ui-router')
     require('angular-local-storage')
+    require('angular-spinner')
 
-    const app = angular.module('blih', ['ui.router', 'LocalStorageModule'])
+    const app = angular.module('blih', ['ui.router', 'LocalStorageModule', 'angularSpinner'])
 
     require('./services/blihFactory')
     require('./controller/homeController')
