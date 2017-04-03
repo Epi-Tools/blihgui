@@ -42,3 +42,8 @@ body {
     padding: 40px 15px;
     text-align: center;
 }
+
+#repoSearchInput {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

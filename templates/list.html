@@ -1,6 +1,7 @@
 <div class="starter-template">
     <h1>Repository List</h1>
-    <ul class="list-group" ng-repeat="repository in repositoryList">
+    <input type="text" class="form-control" id="repoSearchInput" placeholder="Repo Name" ng-model="repoName">
+    <ul class="list-group" ng-repeat="repository in repositoryList | filter:repoName">
         <li class="list-group-item">{{ repository }}</li>
     </ul>
 </div>
