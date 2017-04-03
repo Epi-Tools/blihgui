@@ -1,7 +1,28 @@
 <div class="starter-template">
     <h1>Repository List</h1>
     <input type="text" class="form-control" id="repoSearchInput" placeholder="Repo Name" ng-model="repoName">
-    <ul class="list-group" ng-repeat="repository in repositoryList | filter:repoName">
-        <li class="list-group-item">{{ repository }}</li>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="repository in repositoryList | filter:repoName" ng-click="deleteEvent(repository)">
+            {{ repository }}
+            <span class="badge" style="background-color: #f44336; cursor: pointer; font-size: 14px;">&#10006;</span>
+        </li>
     </ul>
+</div>
+
+<div id="deleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span type="button" class="close" ng-click="closeModalEvent()">&#10006;</span>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure your want to delete {{ deleteRepoName }} ?
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn indigo" ng-click="deleteRepoEvent()">Delete</button>
+                <button type="button" class="btn danger" ng-click="closeModalEvent()">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>

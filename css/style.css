@@ -39,11 +39,27 @@ body {
 }
 
 .starter-template {
-    padding: 40px 15px;
+    padding: 15px 15px;
     text-align: center;
 }
 
 #repoSearchInput {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.indigo {
+    background-color: #3f51b5;
+}
+
+.danger {
+    background-color: #f44336;
+}
+
+#deleteModal {
+    margin-top: 100px;
+}
+
+#deleteModal button {
+    color: white;
 }
