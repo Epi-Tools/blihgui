@@ -2,18 +2,16 @@
  * Created by carlen on 3/23/17.
  */
 const crypto = require('crypto')
-const exec = require('child_process').exec;
+const exec = require('child_process').exec
 
 app.factory('blihService', () => {
     const baseCmd = (username, token, cmd) => `blih -u ${username} -t ${token} ${cmd}`
-    const execCmd = cmd => {
-        return new Promise((success, reject) => {
-            exec(cmd, (error, stdout, stderr) => {
-                if (error) reject(error)
-                else success(stdout)
-            })
+    const execCmd = cmd => new Promise((success, reject) => {
+        exec(cmd, (error, stdout, stderr) => {
+            if (error) reject(error)
+            else success(stdout)
         })
-    }
+    })
 
     return  {
         getToken: password => crypto.createHash('sha512').update(password).digest('hex'),
