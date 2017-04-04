@@ -1,10 +1,10 @@
 <div class="starter-template">
-    <h1>Repository List</h1>
+    <h1 class="h1Style">Repository List</h1>
     <input type="text" class="form-control" id="repoSearchInput" placeholder="Repo Name" ng-model="repoName">
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="repository in repositoryList | filter:repoName" ng-click="deleteEvent(repository)">
             {{ repository }}
-            <span class="badge" style="background-color: #f44336; cursor: pointer; font-size: 14px;">&#10006;</span>
+            <span class="badge redCross">&#10006;</span>
         </li>
     </ul>
 </div>

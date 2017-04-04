@@ -3,8 +3,13 @@ body {
     height: 100%;
 }
 
+/* Header 1 Style */
+.h1Style {
+    font-weight: bold;
+}
+
 /* NavBar Style */
-.navBarStyle{
+.navBarStyle {
     background-color: #01579B;
 }
 
@@ -24,6 +29,13 @@ body {
 /* Warning Style */
 .warning {
     color: #a94442;
+}
+
+/* Red Cross */
+.redCross {
+    background-color: #E53935;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 /*Footer Style */
@@ -49,11 +61,11 @@ body {
 }
 
 .indigo {
-    background-color: #3f51b5;
+    background-color: #5C6BC0;
 }
 
 .danger {
-    background-color: #f44336;
+    background-color: #E53935;
 }
 
 #deleteModal {
