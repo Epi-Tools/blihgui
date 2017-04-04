@@ -60,10 +60,12 @@ body {
     margin-bottom: 15px;
 }
 
+/* Color */
 .indigo {
     background-color: #5C6BC0;
 }
 
+/* Color */
 .danger {
     background-color: #E53935;
 }
