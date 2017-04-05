@@ -2,26 +2,49 @@
  * Created by carlen on 3/23/17.
  */
 
-app.controller('listController', ['$scope', 'localStorageService', function ($scope, localStorageService) {
-    const user = localStorageService.get('user')
-    $scope.repositoryList = user.repositoryList
-    const deleteModal = $('#deleteModal')
+app.controller('listController', ['$scope', 'localStorageService', 'blihService', 'usSpinnerService',
+    function ($scope, localStorageService, blihService, usSpinnerService) {
+        const user = localStorageService.get('user')
+        $scope.repositoryList = user.repositoryList
+        const deleteModal = $('#deleteModal')
+        const deleteSpinner = 'deleteSpinner'
+        const wesh = msg => console.log(msg)
 
-    if (!user) {
-        //TODO(carlen) redirect to home
-    }
+        if (!user) {
+            //TODO(carlen) redirect to home
+        }
 
-    $scope.deleteEvent = name => {
-        $scope.deleteRepoName = name
-        deleteModal.modal('show')
-    }
+        $scope.startSpin = id => usSpinnerService.spin(id)
 
-    $scope.closeModalEvent = () => {
-        $scope.deleteRepoName = ''
-        deleteModal.modal('hide')
-    }
+        $scope.stopSpin = id => usSpinnerService.stop(id)
 
-    $scope.deleteRepoEvent = () => {
+        $scope.deleteEvent = name => {
+            $scope.deleteRepoName = name
+            deleteModal.modal('show')
+        }
 
-    }
+        $scope.closeModalEvent = () => {
+            $scope.deleteRepoName = ''
+            deleteModal.modal('hide')
+        }
+
+        //TODO(carlendev) add error gestion
+        $scope.deleteRepoEvent = () => {
+            $scope.startSpin(deleteSpinner)
+            blihService.deleteRepo(user.userName, user.token, $scope.deleteRepoName)
+                .then(res => {
+                    blihService.getRepositoryList(user.userName, user.token).then(list => {
+                        user.repositoryList = list.split('\n')
+                        localStorageService.set('user', user)
+                        $scope.repositoryList = user.repositoryList
+                        $scope.$apply()
+                        $scope.stopSpin(deleteSpinner)
+                        deleteModal.modal('hide')
+                    })
+                })
+                .catch(err => {
+                    wesh('err')
+                    wesh(err)
+                })
+        }
 }])

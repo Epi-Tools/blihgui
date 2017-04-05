@@ -17,11 +17,12 @@
                 <h4 class="modal-title">Delete</h4>
             </div>
             <div class="modal-body">
-                Are you sure your want to delete {{ deleteRepoName }} ?
+                Are you sure your want to delete <strong>{{ deleteRepoName }}</strong> ?
                 </div>
             <div class="modal-footer">
                 <button type="button" class="btn indigo" ng-click="deleteRepoEvent()">Delete</button>
                 <button type="button" class="btn danger" ng-click="closeModalEvent()">Cancel</button>
+                <span us-spinner spinner-key="deleteSpinner" spinner-start-active="false"></span>
             </div>
         </div>
     </div>

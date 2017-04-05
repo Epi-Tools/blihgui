@@ -34,10 +34,14 @@ app.controller('homeController',
                     const name = $scope.repo.name
                     blihService.postRepo(user.userName, user.token, name)
                         .then(msg => {
-                            $scope.createError = false
-                            $scope.$apply()
-                            createModal.modal('show')
-                            $scope.stopSpin(createSpinner)
+                            blihService.getRepositoryList(user.userName, user.token).then(list => {
+                                user.repositoryList = list.split('\n')
+                                localStorageService.set('user', user)
+                                $scope.createError = false
+                                $scope.$apply()
+                                createModal.modal('show')
+                                $scope.stopSpin(createSpinner)
+                            })
                         })
                         .catch(err => {
                             $scope.createError = true
