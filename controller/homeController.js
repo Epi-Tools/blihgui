@@ -13,15 +13,22 @@ app.controller('homeController',
             const createModal = $('#createModal')
             const loginSpinner = 'loginSpinner'
             const createSpinner = 'createSpinner'
+            const ramassage = 'ramassage-tek'
             $scope.logError = false
-            $scope.userData = {
-                userName: '',
-                password: ''
-            }
+            $scope.userData = { userName: '', password: '' }
+            $scope.checkboxModel = { aclRamassage: false }
 
             if (!user) {
                 loginModal.modal({ backdrop: 'static', keyboard: false })
                 loginModal.modal('show')
+            }
+
+            const wesh = msg => console.log(msg)
+
+            const showModalCreate = () => {
+                $scope.$apply()
+                createModal.modal('show')
+                $scope.stopSpin(createSpinner)
             }
 
             $scope.startSpin = id => usSpinnerService.spin(id)
@@ -38,17 +45,24 @@ app.controller('homeController',
                                 user.repositoryList = list.split('\n')
                                 user.repositoryList.pop()
                                 localStorageService.set('user', user)
-                                $scope.createError = false
-                                $scope.$apply()
-                                createModal.modal('show')
-                                $scope.stopSpin(createSpinner)
+                                if ($scope.checkboxModel.aclRamassage === true) {
+                                    blihService.setAclRepo(user.userName, user.token, name, ramassage, 'r')
+                                        .then(msg => {
+                                            $scope.createError = false
+                                            showModalCreate()
+                                        })
+                                        .catch(err => {
+                                            wesh(err)
+                                            $scope.createError = true
+                                            showModalCreate()
+                                        })
+                                }
+                                else showModalCreate()
                             })
                         })
                         .catch(err => {
                             $scope.createError = true
-                            $scope.$apply()
-                            createModal.modal('show')
-                            $scope.stopSpin(createSpinner)
+                            showModalCreate()
                         })
                 }
             }

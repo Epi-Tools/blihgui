@@ -7,7 +7,6 @@ app.controller('aclController', ['$scope', '$stateParams', 'localStorageService'
         const user = localStorageService.get('user')
         const wesh = msg => console.log(msg)
         const getAclSpinner = 'getAclSpinner'
-        let currentAcl
         $scope.repoName = $stateParams.repoName
         $scope.currentAcl = []
 
@@ -23,7 +22,6 @@ app.controller('aclController', ['$scope', '$stateParams', 'localStorageService'
             $scope.startSpin(getAclSpinner)
             blihService.getAclRepo(user.userName, user.token, $scope.repoName)
                 .then(msg => {
-                    wesh(msg)
                     const acl = msg.split('\n')
                     acl.pop()
                     const aclSort = []
