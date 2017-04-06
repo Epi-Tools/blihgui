@@ -36,6 +36,7 @@ app.controller('homeController',
                         .then(msg => {
                             blihService.getRepositoryList(user.userName, user.token).then(list => {
                                 user.repositoryList = list.split('\n')
+                                user.repositoryList.pop()
                                 localStorageService.set('user', user)
                                 $scope.createError = false
                                 $scope.$apply()
@@ -65,6 +66,7 @@ app.controller('homeController',
                     blihService.getRepositoryList(userName, token)
                         .then(list => {
                             const repositoryList = list.split('\n')
+                            repositoryList.pop()
                             user = {
                                 userName,
                                 token,

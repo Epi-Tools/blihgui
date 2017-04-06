@@ -17,6 +17,7 @@ app.factory('blihService', () => {
         getToken: password => crypto.createHash('sha512').update(password).digest('hex'),
         getRepositoryList: (username, token) => execCmd(baseCmd(username, token, 'repository list')),
         postRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository create ${name}`)),
-        deleteRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository delete ${name}`))
+        deleteRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository delete ${name}`)),
+        getAclRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository getacl ${name}`))
     }
 })

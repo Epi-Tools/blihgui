@@ -1,0 +1,11 @@
+<div class="starter-template">
+    <h1 class="h1Style">Acl: <strong>{{ repoName }}</strong></h1>
+    <ul class="list-group" style="padding: 20px;">
+        <li class="list-group-item" ng-repeat="user in currentAcl">
+            {{ user[0] }}
+            <span class="pull-right"> {{ user[1] }}</span>
+            <span class="badge pull-left indigo">Edit</span>
+        </li>
+    </ul>
+    <span us-spinner spinner-key="getAclSpinner" spinner-start-active="false"></span>
+</div>

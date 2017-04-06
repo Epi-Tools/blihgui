@@ -2,8 +2,8 @@
  * Created by carlen on 3/23/17.
  */
 
-app.controller('listController', ['$scope', 'localStorageService', 'blihService', 'usSpinnerService',
-    function ($scope, localStorageService, blihService, usSpinnerService) {
+app.controller('listController', ['$scope', 'localStorageService', 'blihService', 'usSpinnerService', '$state',
+    function ($scope, localStorageService, blihService, usSpinnerService, $state) {
         const user = localStorageService.get('user')
         $scope.repositoryList = user.repositoryList
         const deleteModal = $('#deleteModal')
@@ -17,6 +17,8 @@ app.controller('listController', ['$scope', 'localStorageService', 'blihService'
         $scope.startSpin = id => usSpinnerService.spin(id)
 
         $scope.stopSpin = id => usSpinnerService.stop(id)
+
+        $scope.goToAcl = name => $state.go('acl', { repoName: name })
 
         $scope.deleteEvent = name => {
             $scope.deleteRepoName = name
@@ -36,6 +38,7 @@ app.controller('listController', ['$scope', 'localStorageService', 'blihService'
                     blihService.getRepositoryList(user.userName, user.token).then(list => {
                         user.repositoryList = list.split('\n')
                         localStorageService.set('user', user)
+                        user.repositoryList.pop()
                         $scope.repositoryList = user.repositoryList
                         $scope.$apply()
                         $scope.stopSpin(deleteSpinner)

@@ -1,15 +1,16 @@
 <div class="starter-template">
     <h1 class="h1Style">Repository List</h1>
     <input type="text" class="form-control" id="repoSearchInput" placeholder="Repo Name" ng-model="repoName">
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="repository in repositoryList | filter:repoName" ng-click="deleteEvent(repository)">
+    <ul class="list-group" style="padding: 20px;">
+        <li class="list-group-item" ng-repeat="repository in repositoryList | filter:repoName">
             {{ repository }}
-            <span class="badge redCross">&#10006;</span>
+            <span class="badge redCross" ng-click="deleteEvent(repository)">&#10006;</span>
+            <span class="badge indigo" ng-click="goToAcl(repository)" style="cursor: pointer;">ACL</span>
         </li>
     </ul>
 </div>
 
-<div id="deleteModal" class="modal fade" role="dialog">
+<div id="deleteModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
