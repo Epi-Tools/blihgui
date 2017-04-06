@@ -55,7 +55,7 @@
                     <label>Password</label>
                     <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="8" required>
                 </div>
-                    <p ng-show="logError" class="warning">Wrong Email or Password</p>
+                <p ng-show="logError" class="warning">Wrong Email or Password</p>
                 <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Login</button>
                 <span us-spinner spinner-key="loginSpinner" spinner-start-active="false"></span>
             </form>

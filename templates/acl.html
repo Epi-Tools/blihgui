@@ -1,5 +1,6 @@
 <div class="starter-template">
     <h1 class="h1Style">Acl: <strong>{{ repoName }}</strong></h1>
+    <p class="warning" ng-show="noAcl"><strong>No ACL set for this Repo</strong></p>
     <ul class="list-group" style="padding: 20px;">
         <li class="list-group-item" ng-repeat="user in currentAcl">
             <strong>{{ user[0] }}</strong>
@@ -20,12 +21,17 @@
                 <h4 class="modal-title">Edit</h4>
             </div>
             <div class="modal-body">
-                <!--Are you sure your want to delete <strong>{{ deleteRepoName }}</strong> ?-->
+                <p class="list-group-item">{{ editRepo.name }}
+                    <input type="text" class="pull-right" ng-model="editedAcl">
+                </p>
+                <p ng-show="editError" class="danger">
+                    <strong>Wrong ACL or Network Problem</strong>
+                </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn indigo" ng-click="deleteRepoEvent()">Submit</button>
+                <button type="button" class="btn indigo" ng-click="editAclRepoEvent()">Submit</button>
                 <button type="button" class="btn danger" ng-click="closeModalEvent()">Cancel</button>
-                <span us-spinner spinner-key="deleteSpinner" spinner-start-active="false"></span>
+                <span us-spinner spinner-key="editSpinner" spinner-start-active="false"></span>
             </div>
         </div>
     </div>

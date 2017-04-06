@@ -10,9 +10,7 @@ app.controller('listController', ['$scope', 'localStorageService', 'blihService'
         const deleteSpinner = 'deleteSpinner'
         const wesh = msg => console.log(msg)
 
-        if (!user) {
-            //TODO(carlen) redirect to home
-        }
+        if (!user) $scope.goToAcl = name => $state.go('home')
 
         $scope.startSpin = id => usSpinnerService.spin(id)
 
