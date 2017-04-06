@@ -2,10 +2,31 @@
     <h1 class="h1Style">Acl: <strong>{{ repoName }}</strong></h1>
     <ul class="list-group" style="padding: 20px;">
         <li class="list-group-item" ng-repeat="user in currentAcl">
-            {{ user[0] }}
-            <span class="pull-right"> {{ user[1] }}</span>
-            <span class="badge pull-left indigo">Edit</span>
+            <strong>{{ user[0] }}</strong>
+            <span class="pull-right">
+                <strong>{{ user[1] }}</strong>
+            </span>
+            <span class="badge pull-left indigo" ng-click="editEvent(user[0], user[1])" style="cursor:pointer;">Edit</span>
         </li>
     </ul>
     <span us-spinner spinner-key="getAclSpinner" spinner-start-active="false"></span>
+</div>
+
+<div id="editModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span type="button" class="close" ng-click="closeModalEvent()">&#10006;</span>
+                <h4 class="modal-title">Edit</h4>
+            </div>
+            <div class="modal-body">
+                <!--Are you sure your want to delete <strong>{{ deleteRepoName }}</strong> ?-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn indigo" ng-click="deleteRepoEvent()">Submit</button>
+                <button type="button" class="btn danger" ng-click="closeModalEvent()">Cancel</button>
+                <span us-spinner spinner-key="deleteSpinner" spinner-start-active="false"></span>
+            </div>
+        </div>
+    </div>
 </div>

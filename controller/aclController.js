@@ -7,6 +7,7 @@ app.controller('aclController', ['$scope', '$stateParams', 'localStorageService'
         const user = localStorageService.get('user')
         const wesh = msg => console.log(msg)
         const getAclSpinner = 'getAclSpinner'
+        const editModal = $('#editModal')
         $scope.repoName = $stateParams.repoName
         $scope.currentAcl = []
 
@@ -34,6 +35,12 @@ app.controller('aclController', ['$scope', '$stateParams', 'localStorageService'
                     //No acl
                 })
         }
+
+        $scope.editEvent = (user, acl) => {
+            editModal.modal('show')
+        }
+
+        $scope.closeModalEvent = () => editModal.modal('hide')
 
         $scope.getCurrentAcl()
     }])
