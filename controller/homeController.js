@@ -16,7 +16,7 @@ app.controller('homeController',
             const ramassage = 'ramassage-tek'
             $scope.logError = false
             $scope.userData = { userName: '', password: '' }
-            $scope.checkboxModel = { aclRamassage: false }
+            $scope.checkboxModel = { aclRamassage: true }
 
             if (!user) {
                 loginModal.modal({ backdrop: 'static', keyboard: false })
