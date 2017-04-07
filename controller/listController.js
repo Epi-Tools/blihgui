@@ -34,9 +34,8 @@ app.controller('listController', ['$scope', 'localStorageService', 'blihService'
             blihService.deleteRepo(user.userName, user.token, $scope.deleteRepoName)
                 .then(res => {
                     blihService.getRepositoryList(user.userName, user.token).then(list => {
-                        user.repositoryList = list.split('\n')
+                        user.repositoryList = list
                         localStorageService.set('user', user)
-                        user.repositoryList.pop()
                         $scope.repositoryList = user.repositoryList
                         $scope.$apply()
                         $scope.stopSpin(deleteSpinner)
@@ -44,7 +43,7 @@ app.controller('listController', ['$scope', 'localStorageService', 'blihService'
                     })
                 })
                 .catch(err => {
-                    wesh('err')
+                    wesh('delete err')
                     wesh(err)
                 })
         }

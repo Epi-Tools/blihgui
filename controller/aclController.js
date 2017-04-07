@@ -8,10 +8,16 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
         const wesh = msg => console.log(msg)
         const getAclSpinner = 'getAclSpinner'
         const editSpinner = 'editSpinner'
-        const editModal = $('#editModal')
+        const addSpinner = 'addSpinner'
+        const editModal = 'editModal'
+        const addAclModal = 'addAclModal'
+        const errAcl = 'Wrong username or acl'
+        $scope.editModal = $('#editModal')
+        $scope.addAclModal = $('#addAclModal')
         $scope.repoName = $stateParams.repoName
         $scope.currentAcl = []
         $scope.editError = false
+        $scope.addError = false
         $scope.noAcl = true
 
         if (!user) $scope.goToAcl = name => $state.go('home')
@@ -23,31 +29,39 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
             return true
         }
 
-        $scope.startSpin = id => usSpinnerService.spin(id)
+        const getAclFormat = acl => {
+            const keys = Object.keys(acl)
+            const len = keys.length
+            const aclFormat = []
+            for (let i = 0; i < len; ++i) aclFormat.push([ keys[i], acl[keys[i]] ])
+            return aclFormat
+        }
 
+        $scope.startSpin = id => usSpinnerService.spin(id)
         $scope.stopSpin = id => usSpinnerService.stop(id)
+
+        $scope.closeModalEvent = id => $scope[id].modal('hide')
+        $scope.openModalEvent = id => $scope[id].modal('show')
 
         $scope.getCurrentAcl = () => {
             $scope.startSpin(getAclSpinner)
             blihService.getAclRepo(user.userName, user.token, $scope.repoName)
                 .then(msg => {
                     $scope.noAcl = false
-                    const acl = msg.split('\n')
-                    acl.pop()
-                    const aclSort = []
-                    for (let i = 0, len = acl.length; i < len; ++i) aclSort.push(acl[i].split(':'))
-                    $scope.currentAcl = aclSort
+                    $scope.currentAcl = getAclFormat(msg)
                     $scope.stopSpin(getAclSpinner)
                     $scope.$apply()
                 })
-                .catch(_ => {
+                .catch(err => {
+                    wesh('err getacl')
+                    wesh(err)
                     $scope.noAcl = true
                     $scope.$apply()
                 })
         }
 
         $scope.editEvent = (user, acl) => {
-            editModal.modal('show')
+            $scope.openModalEvent(editModal)
             $scope.editedAcl = acl
             $scope.editRepo = { name: user, acl }
         }
@@ -65,27 +79,43 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
                     blihService.getAclRepo(user.userName, user.token, $scope.repoName)
                         .then(msg => {
                             $scope.noAcl = false
-                            const acl = msg.split('\n')
-                            acl.pop()
-                            const aclSort = []
-                            for (let i = 0, len = acl.length; i < len; ++i) aclSort.push(acl[i].split(':'))
-                            $scope.currentAcl = aclSort
+                            $scope.currentAcl = getAclFormat(msg)
                             $scope.stopSpin(editSpinner)
                             $scope.$apply()
-                            $scope.closeModalEvent()
+                            $scope.closeModalEvent(editModal)
                         })
-                        .catch(_ => {
+                        .catch(err => {
+                            wesh('err getacl')
+                            wesh(err)
                             $scope.editError = true
                             $scope.stopSpin(editSpinner)
                         })
                 })
-                .catch(_ => {
+                .catch(err => {
+                    wesh('err setacl')
+                    wesh(err)
                     $scope.editError = true
                     $scope.stopSpin(editSpinner)
                 })
         }
 
-        $scope.closeModalEvent = () => editModal.modal('hide')
+        $scope.addAclEvent = () => {
+            $scope.openModalEvent(addAclModal)
+            $scope.aclFields = []
+        }
+
+        $scope.moreAclEvent = () => {
+            if (!$scope.aclFields.length) $scope.aclFields.push({ name: '', acl: '', errAcl, id: 0, err: false })
+            else {
+                const id = $scope.aclFields[$scope.aclFields.length - 1].id + 1
+                $scope.aclFields.push({ name: '', acl: '', errAcl, id, err: false })
+            }
+        }
+
+        $scope.addAclRepoEvent = () => {
+            //mail for tek1
+            //login for tek2
+        }
 
         $scope.getCurrentAcl()
     }])

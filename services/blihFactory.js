@@ -3,23 +3,44 @@
  */
 const crypto = require('crypto')
 const exec = require('child_process').exec
+const Blih = require('../utils/blih')
 
 app.factory('blihService', () => {
-    const baseCmd = (username, token, cmd) => `blih -u ${username} -t ${token} ${cmd}`
 
-    const execCmd = cmd => new Promise((success, reject) => {
-        exec(cmd, (error, stdout, stderr) => {
-            if (error) reject(error)
-            else success(stdout)
-        })
-    })
+    const wesh = msg => console.log(msg)
+    const getBlih = (username, token) => new Blih(username, token)
 
     return  {
-        getToken: password => crypto.createHash('sha512').update(password).digest('hex'),
-        getRepositoryList: (username, token) => execCmd(baseCmd(username, token, 'repository list')),
-        postRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository create ${name}`)),
-        deleteRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository delete ${name}`)),
-        getAclRepo: (username, token, name) => execCmd(baseCmd(username, token, `repository getacl ${name}`)),
-        setAclRepo: (username, token, name, user, acl) => execCmd(baseCmd(username, token, `repository setacl ${name} ${user} ${acl}`))
+        getToken: password => Blih.generateToken(password),
+        getRepositoryList: (username, token) => new Promise((success, reject) => {
+            getBlih(username, token).getRepositories((err, body) => {
+                if (err) reject(err)
+                else success(Object.keys(body.repositories))
+            })
+        }),
+        postRepo: (username, token, name) => new Promise((success, reject) => {
+            getBlih(username, token).createRepository(name, (err, body) => {
+                if (err) reject(err)
+                else success(body)
+            })
+        }),
+        deleteRepo: (username, token, name) => new Promise((success, reject) => {
+            getBlih(username, token).deleteRepository(name, (err, body) => {
+                if (err) reject(err)
+                else success(body)
+            })
+        }),
+        getAclRepo: (username, token, name) => new Promise((success, reject) => {
+            getBlih(username, token).getAcl(name, (err, body) => {
+                if (err) reject(err)
+                else success(body)
+            })
+        }),
+        setAclRepo: (username, token, name, user, acl) => new Promise((success, reject) => {
+            getBlih(username, token).setAcl(name, user, acl, (err, body) => {
+                if (err) reject(err)
+                else success(body)
+            })
+        })
     }
 })

@@ -1,7 +1,10 @@
 <div class="starter-template">
     <h1 class="h1Style">Acl: <strong>{{ repoName }}</strong></h1>
     <p class="warning" ng-show="noAcl"><strong>No ACL set for this Repo</strong></p>
-    <ul class="list-group" style="padding: 20px;">
+    <p class="pull-left">
+        <button class="btn indigo" ng-click="addAclEvent()" style="margin-left: 20px; color: white">Add ACL</button>
+    </p>
+    <ul class="list-group" style="padding: 20px; margin-top: 30px;">
         <li class="list-group-item" ng-repeat="user in currentAcl">
             <strong>{{ user[0] }}</strong>
             <span class="pull-right">
@@ -17,21 +20,60 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <span type="button" class="close" ng-click="closeModalEvent()">&#10006;</span>
+                <span type="button" class="close" ng-click="closeModalEvent('editModal')">&#10006;</span>
                 <h4 class="modal-title">Edit</h4>
             </div>
             <div class="modal-body">
                 <p class="list-group-item">{{ editRepo.name }}
                     <input type="text" class="pull-right" ng-model="editedAcl">
                 </p>
-                <p ng-show="editError" class="danger">
+                <p ng-show="editError" class="warning">
                     <strong>Wrong ACL or Network Problem</strong>
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn indigo" ng-click="editAclRepoEvent()">Submit</button>
-                <button type="button" class="btn danger" ng-click="closeModalEvent()">Cancel</button>
+                <button type="button" class="btn danger" ng-click="closeModalEvent('editModal')">Cancel</button>
                 <span us-spinner spinner-key="editSpinner" spinner-start-active="false"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addAclModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span type="button" class="close" ng-click="closeModalEvent('addAclModal')">&#10006;</span>
+                <h4 class="modal-title">Add ACL</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <button class="btn btn-lg indigo" style="color: white" ng-click="moreAclEvent()">
+                        <strong>&#43;</strong>
+                    </button>
+                </p>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="field in aclFields">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="field.user" placeholder="UserName" style="width: 275px;">
+                                <input type="text" class="form-control" ng-model="field.acl" placeholder="ACL" style="width: 250px;">
+                            </div>
+                        </form>
+                        <p class="warning" ng-show="field.err">
+                            <strong>{{ field.errAcl }}</strong>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn indigo" ng-click="addAclRepoEvent()">Submit</button>
+                <button type="button" class="btn danger" ng-click="closeModalEvent('addAclModal')">Cancel</button>
+                <span us-spinner spinner-key="addSpinner" spinner-start-active="false"></span>
+                <p ng-show="addError" class="warning">
+                    <strong>No ACL Set or Network Problem</strong>
+                </p>
             </div>
         </div>
     </div>

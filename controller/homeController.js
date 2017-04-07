@@ -2,6 +2,7 @@
  * Created by carlen on 3/22/17.
  */
 //TODO(carlendev) when create repo remake repository list && add checkbox for ramassage-tek r and make view for see permission on repo
+// add clone button
 app.controller('homeController',
     ['$scope',
         'localStorageService',
@@ -41,26 +42,29 @@ app.controller('homeController',
                     const name = $scope.repo.name
                     blihService.postRepo(user.userName, user.token, name)
                         .then(msg => {
-                            blihService.getRepositoryList(user.userName, user.token).then(list => {
-                                user.repositoryList = list.split('\n')
-                                user.repositoryList.pop()
-                                localStorageService.set('user', user)
-                                if ($scope.checkboxModel.aclRamassage === true) {
-                                    blihService.setAclRepo(user.userName, user.token, name, ramassage, 'r')
-                                        .then(msg => {
-                                            $scope.createError = false
-                                            showModalCreate()
-                                        })
-                                        .catch(err => {
-                                            wesh(err)
-                                            $scope.createError = true
-                                            showModalCreate()
-                                        })
-                                }
-                                else showModalCreate()
-                            })
+                            blihService.getRepositoryList(user.userName, user.token)
+                                .then(list => {
+                                    user.repositoryList = list
+                                    localStorageService.set('user', user)
+                                    if ($scope.checkboxModel.aclRamassage === true) {
+                                        blihService.setAclRepo(user.userName, user.token, name, ramassage, 'r')
+                                            .then(msg => {
+                                                $scope.createError = false
+                                                showModalCreate()
+                                            })
+                                            .catch(err => {
+                                                wesh('err setacl')
+                                                wesh(err)
+                                                $scope.createError = true
+                                                showModalCreate()
+                                            })
+                                    }
+                                    else showModalCreate()
+                                })
                         })
                         .catch(err => {
+                            wesh('create error')
+                            wesh(err)
                             $scope.createError = true
                             showModalCreate()
                         })
@@ -79,8 +83,7 @@ app.controller('homeController',
                     $scope.userData.password = $scope.user.password
                     blihService.getRepositoryList(userName, token)
                         .then(list => {
-                            const repositoryList = list.split('\n')
-                            repositoryList.pop()
+                            const repositoryList = list
                             user = {
                                 userName,
                                 token,

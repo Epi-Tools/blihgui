@@ -18,6 +18,8 @@
     "angular-spinner": "^1.0.1",
     "angular-ui-router": "^0.4.2",
     "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1"
+    "crypto": "0.0.3",
+    "jquery": "^3.2.1",
+    "request": "^2.81.0"
   }
 }
