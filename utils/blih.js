@@ -1,8 +1,6 @@
 const crypto  = require('crypto')
 const request = require('request')
 
-const wesh = msg => console.log(msg)
-
 class Blih {
 
     constructor (email, token) {

@@ -1,8 +1,7 @@
 /**
  * Created by carlen on 3/22/17.
  */
-//TODO(carlendev) when create repo remake repository list && add checkbox for ramassage-tek r and make view for see permission on repo
-// add clone button
+//TODO(carlendev) add clone button
 app.controller('homeController',
     ['$scope',
         'localStorageService',
@@ -15,6 +14,7 @@ app.controller('homeController',
             const loginSpinner = 'loginSpinner'
             const createSpinner = 'createSpinner'
             const ramassage = 'ramassage-tek'
+            const wesh = msg => console.log(msg)
             $scope.logError = false
             $scope.userData = { userName: '', password: '' }
             $scope.checkboxModel = { aclRamassage: true }
@@ -23,8 +23,6 @@ app.controller('homeController',
                 loginModal.modal({ backdrop: 'static', keyboard: false })
                 loginModal.modal('show')
             }
-
-            const wesh = msg => console.log(msg)
 
             const showModalCreate = () => {
                 $scope.$apply()
