@@ -35,10 +35,10 @@ app.factory('blihService', () => {
                 else success(body)
             })
         }),
-        setAclRepo: (username, token, name, user, acl) => new Promise((success, reject) => {
+        setAclRepo: (username, token, name, user, acl, pos) => new Promise((success, reject) => {
             getBlih(username, token).setAcl(name, user, acl, (err, body) => {
-                if (err) reject(err)
-                else success(body)
+                if (err) reject({ err, pos })
+                else success({ body, pos })
             })
         })
     }

@@ -1,7 +1,7 @@
 /**
  * Created by carlen on 3/22/17.
  */
-//TODO(carlendev) add clone button
+//TODO(carlendev) add clone button && protection span button
 app.controller('homeController',
     ['$scope',
         'localStorageService',
