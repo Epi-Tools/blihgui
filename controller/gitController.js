@@ -18,6 +18,7 @@ app.controller('gitController', ['$scope', '$stateParams', '$state', 'localStora
         $scope.errClone = null
         $scope.username = user.userName
         $scope.successClone = false
+        $scope.isInClone = false
 
         $scope.startSpin = id => usSpinnerService.spin(id)
         $scope.stopSpin = id => usSpinnerService.stop(id)
@@ -32,6 +33,7 @@ app.controller('gitController', ['$scope', '$stateParams', '$state', 'localStora
         }
 
         $scope.gitClone = () => {
+            if ($scope.isInClone) return
             if ($scope.gitPath === undefined || $scope.gitPath === null) {
                 $scope.cloneError = true
                 $scope.errClone = notPath
@@ -45,12 +47,14 @@ app.controller('gitController', ['$scope', '$stateParams', '$state', 'localStora
                 return
             }
             $scope.startSpin(cloneSpinner)
+            $scope.isInClone = true
             gitService.clone($scope.repoName, $scope.gitPath, $scope.username)
                 .then(_ => {
                     $scope.cloneError = false
                     $scope.stopSpin(cloneSpinner)
                     $scope.successClone = true
                     $scope.$apply()
+                    $scope.isInClone = false
                 })
                 .catch(_ => {
                     $scope.stopSpin(cloneSpinner)
@@ -58,6 +62,7 @@ app.controller('gitController', ['$scope', '$stateParams', '$state', 'localStora
                     $scope.errClone = cloneError
                     $scope.successClone = false
                     $scope.$apply()
+                    $scope.isInClone = false
                 })
         }
     }])

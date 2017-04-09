@@ -1,7 +1,7 @@
 /**
  * Created by carlen on 3/22/17.
  */
-//TODO(carlendev) add clone button && protection span button
+
 app.controller('homeController',
     ['$scope',
         'localStorageService',
@@ -18,6 +18,7 @@ app.controller('homeController',
             $scope.logError = false
             $scope.userData = { userName: '', password: '' }
             $scope.checkboxModel = { aclRamassage: true }
+            $scope.isInCreate = false
 
             if (!user) {
                 loginModal.modal({ backdrop: 'static', keyboard: false })
@@ -35,7 +36,9 @@ app.controller('homeController',
             $scope.stopSpin = id => usSpinnerService.stop(id)
 
             $scope.submitCreate = () => {
+                if ($scope.isInCreate) return
                 if ($scope.createForm.$valid) {
+                    $scope.isInCreate = true
                     $scope.startSpin(createSpinner)
                     const name = $scope.repo.name
                     blihService.postRepo(user.userName, user.token, name)
@@ -48,21 +51,27 @@ app.controller('homeController',
                                         blihService.setAclRepo(user.userName, user.token, name, ramassage, 'r')
                                             .then(msg => {
                                                 $scope.createError = false
+                                                $scope.isInCreate = false
                                                 showModalCreate()
                                             })
                                             .catch(err => {
                                                 wesh('err setacl')
                                                 wesh(err)
                                                 $scope.createError = true
+                                                $scope.isInCreate = false
                                                 showModalCreate()
                                             })
                                     }
-                                    else showModalCreate()
+                                    else {
+                                        $scope.isInCreate = false
+                                        showModalCreate()
+                                    }
                                 })
                         })
                         .catch(err => {
                             wesh('create error')
                             wesh(err)
+                            $scope.isInCreate = false
                             $scope.createError = true
                             showModalCreate()
                         })

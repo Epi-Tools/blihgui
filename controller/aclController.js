@@ -21,6 +21,8 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
         $scope.editError = false
         $scope.addError = false
         $scope.noAcl = true
+        $scope.isInEditAcl = false
+        $scope.isInAddAcl = false
 
         if (!user) $scope.goToAcl = name => $state.go('home')
 
@@ -72,12 +74,14 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
         }
 
         $scope.editAclRepoEvent = () => {
+            if ($scope.isInEditAcl) return
             $scope.startSpin(editSpinner)
             if (!checkAcl($scope.editedAcl)) {
                 $scope.editError = true
                 $scope.stopSpin(editSpinner)
                 return
             }
+            $scope.isInEditAcl = true
             blihService.setAclRepo(user.userName, user.token, $scope.repoName, $scope.editRepo.name, $scope.editedAcl, 0)
                 .then(msg => {
                     $scope.editError = false
@@ -88,12 +92,14 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
                             $scope.stopSpin(editSpinner)
                             $scope.$apply()
                             $scope.closeModalEvent(editModal)
+                            $scope.isInEditAcl = false
                         })
                         .catch(err => {
                             wesh('err getacl')
                             wesh(err)
                             $scope.editError = true
                             $scope.stopSpin(editSpinner)
+                            $scope.isInEditAcl = false
                         })
                 })
                 .catch(err => {
@@ -101,6 +107,7 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
                     wesh(err)
                     $scope.editError = true
                     $scope.stopSpin(editSpinner)
+                    $scope.isInEditAcl = false
                 })
         }
 
@@ -123,6 +130,7 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
         }
 
         $scope.addAclRepoEvent = () => {
+            if ($scope.isInAddAcl) return
             const len = $scope.aclFields.length
             let err = false
             for (let i = 0; i < len; ++i) {
@@ -133,6 +141,7 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
                 else $scope.aclFields[i].err = false
             }
             if (err) return
+            $scope.isInAddAcl = true
             $scope.startSpin(addSpinner)
             let count = 0
             const aclCpy = JSON.parse(JSON.stringify($scope.aclFields))
@@ -147,6 +156,7 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
                             $scope.aclFields = aclCpy
                             $scope.stopSpin(addSpinner)
                             $scope.$apply()
+                            $scope.isInAddAcl = false
                         }
                     })
                     .catch(data => {
@@ -157,6 +167,7 @@ app.controller('aclController', ['$scope', '$stateParams', '$state', 'localStora
                             $scope.aclFields = aclCpy
                             $scope.stopSpin(addSpinner)
                             $scope.$apply()
+                            $scope.isInAddAcl = false
                         }
                     })
             }
