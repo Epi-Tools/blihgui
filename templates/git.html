@@ -1,0 +1,19 @@
+<div class="starter-template">
+    <h1 class="h1Style">Clone {{ repoName }}</h1>
+    <p class="warning" ng-show="cloneError"><strong>{{ errClone }}</strong></p>
+    <p class="success" ng-show="successClone"><strong>Repository was cloned</strong></p>
+    <form class="form-inline" style="margin-top: 50px;">
+        <div class="form-group">
+            <label class="sr-only" for="gitPath">Path</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="gitPath" placeholder="Path" ng-model="gitPath" readonly>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" id="username" placeholder="User Name" ng-model="username">
+            </div>
+        </div>
+        <button class="btn indigo" style="color: white" ng-click="getDirectory()">Choose Path</button>
+        <button class="btn btn-success" ng-click="gitClone()">Clone</button>
+        <span us-spinner spinner-key="cloneSpinner" spinner-start-active="false"></span>
+    </form>
+</div>

@@ -17,6 +17,7 @@ app.controller('listController', ['$scope', 'localStorageService', 'blihService'
         $scope.stopSpin = id => usSpinnerService.stop(id)
 
         $scope.goToAcl = name => $state.go('acl', { repoName: name })
+        $scope.goToGit = name => $state.go('git', { repoName: name })
 
         $scope.deleteEvent = name => {
             $scope.deleteRepoName = name

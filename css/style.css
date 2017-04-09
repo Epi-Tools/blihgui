@@ -31,6 +31,12 @@ body {
     color: #a94442;
 }
 
+/* Success Style */
+.success {
+    color: #4caf50;
+}
+
+
 /* Red Cross */
 .redCross {
     background-color: #E53935;

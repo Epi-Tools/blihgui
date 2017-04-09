@@ -47,9 +47,11 @@
     const app = angular.module('blih', ['ui.router', 'LocalStorageModule', 'angularSpinner'])
 
     require('./services/blihFactory')
+    require('./services/gitFactory')
     require('./controller/homeController')
     require('./controller/listController')
     require('./controller/aclController')
+    require('./controller/gitController')
 
     app.config(($stateProvider, $urlRouterProvider) => {
         $stateProvider.state('default', {
@@ -72,6 +74,12 @@
             templateUrl: './templates/acl.html',
             url:'/acl/:repoName'
         })
+        $stateProvider.state('git', {
+            controller: 'gitController',
+            templateUrl: './templates/git.html',
+            url:'/git/:repoName'
+        })
+
         $urlRouterProvider.otherwise('/')
     })
 

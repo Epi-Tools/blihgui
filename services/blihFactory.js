@@ -2,7 +2,6 @@
  * Created by carlen on 3/23/17.
  */
 const crypto = require('crypto')
-const exec = require('child_process').exec
 const Blih = require('../utils/blih')
 
 app.factory('blihService', () => {
@@ -10,7 +9,7 @@ app.factory('blihService', () => {
     const wesh = msg => console.log(msg)
     const getBlih = (username, token) => new Blih(username, token)
 
-    return  {
+    return {
         getToken: password => Blih.generateToken(password),
         getRepositoryList: (username, token) => new Promise((success, reject) => {
             getBlih(username, token).getRepositories((err, body) => {
