@@ -1,2 +1,1 @@
-[still in development]
-blih GUI for EPITECH
+# Blih GUI for EPITECH
