@@ -16,7 +16,7 @@ app.controller('gitController', ['$scope', '$stateParams', '$state', 'localStora
         $scope.gitPath = null
         $scope.cloneError = false
         $scope.errClone = null
-        $scope.username = null
+        $scope.username = user.userName
         $scope.successClone = false
 
         $scope.startSpin = id => usSpinnerService.spin(id)
