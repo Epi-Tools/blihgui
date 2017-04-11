@@ -76,6 +76,12 @@ body {
     background-color: #E53935;
 }
 
+.imageGitHub {
+    height: 45px;
+    margin-left: 15px;
+    width: 45px;
+}
+
 #deleteModal {
     margin-top: 100px;
 }
