@@ -34,6 +34,9 @@
   </body>
   <div class="footerPage">
       Developed by Yann Carlen and Quentin Muller
+      <a id="linkGithub" href="https://github.com/carlendev/blihgui/releases">
+        <img src="./assets/github.png" class="imageGitHub"/>
+      </a>
   </div>
   <script>
     const $ = require('jquery')
@@ -52,6 +55,13 @@
     require('./controller/listController')
     require('./controller/aclController')
     require('./controller/gitController')
+    
+    const shell = require('electron').shell;
+
+    $(document).on('click', '#linkGithub', function(event) {
+        event.preventDefault();
+        shell.openExternal(this.href);
+    });
 
     app.config(($stateProvider, $urlRouterProvider) => {
         $stateProvider.state('default', {
